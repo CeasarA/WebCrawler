@@ -14,3 +14,13 @@ html = html_bytes.decode("utf-8")
 # Find and Extract Title
 title_index = html.find("<title>")
 print(title_index)
+
+# Star and End of Index of Title
+start_index = title_index + len("<title>")
+
+end_index = title_index + len("<title>")
+
+title = html[start_index:end_index]
+print(title)
+
+
