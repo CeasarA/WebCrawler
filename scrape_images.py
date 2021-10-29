@@ -7,47 +7,65 @@ from PIL import Image
 import io
 import pathlib
 import hashlib
+import csv
+
 
 # url = 'https://nsano.com/'
-url = 'https://illinois.edu/fb/sec/229675'
+
+file = open('test_data.csv', newline='')
+reader = csv.reader(file)
+data_list = list(reader)
+title  = data_list.pop(0)
+
+urls = []
+for x in data_list:
+    urls.append(x[0])
+
+print(urls)
+
+# url = 'https://illinois.edu/fb/sec/229675'
 
 # Extract domain
-domain = urlparse(url=url).netloc
+try:
+    for u in urls:
+        url_after_adding_https = 'https://' + u
+        domain = urlparse(url=url_after_adding_https).netloc
 
-# Make a request to url, It will return a response
-responses = requests.get(url)
+        # Make a request to url, It will return a response
 
-# Parse the response through BS4's html parser
-soup = BeautifulSoup(responses.text, "html.parser")
+        responses = requests.get(url_after_adding_https)
 
-# Extract all tags with 'img' in it
-raw_links = soup.find_all("img")
+        # Parse the response through BS4's html parser
+        soup = BeautifulSoup(responses.text, "html.parser")
 
-# loop through raw links and process them
-links = []
-for i in raw_links:
-    link = i['src']
-    if link.startswith("http"):
-        links.append(link)
-    else: 
-        new_link = "https://" + domain + '/' + link
-        links.append(new_link)
+        # Extract all tags with 'img' in it
+        raw_links = soup.find_all("img")
 
-print("Processed And Cleaned Links: ", links)
+        # loop through raw links and process them
+        links = []
+        for i in raw_links:
+            link = i['src']
+            if link.startswith("http"):
+                links.append(link)
+            else: 
+                new_link = "https://" + domain + '/' + link
+                links.append(new_link)
+        
+            print("Processed And Cleaned Links: ", links)
+except Exception as e:
+    print(e)
+
 
 # Export data to a csv file
 df = pd.DataFrame({"Links": links})
-df.to_csv('images_from_nsano.csv', index=False, encoding='utf-8')
+df.to_csv('test_data_images.csv', index=False, encoding='utf-8')
 
-# Write and Dwonload Images to a File
+# Write and Download Images to a File
 for x in links:
     image = requests.get(x).content
     #creates a byte object out of image_content and point the variable image_file to it
     image_file = io.BytesIO(image)
     image = Image.open(image_file).convert('RGB')
-    # file_path = pathlib.Path('/images', hashlib.sha1(image).hexdigest()[:10] + '.png')
-    # file_path = pathlib.Path('images')
-    # image.save(file_path, "PNG", quality=80)
     print(image_file)
 
 if __name__ == "__main__":
