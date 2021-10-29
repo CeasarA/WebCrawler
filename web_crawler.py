@@ -76,7 +76,23 @@ for i in links:
 
 browser = mechanicalsoup.Browser()
 url = "http://olympus.realpython.org/login"
-page = browser.get(url)
+login_page = browser.get(url)
+login_html = login_page.soup
 
-print(page.soup)
+form = login_html.select("form")[0]
+form.select("input")[0]["value"] = "zues"
+form.select("input")[1]["value"] = "ThunderDude"
+
+profiles_page = browser.submit(form, login_page.url)
+print("profiles_page", profiles_page.url)
+
+profiles_page.url
+
+linkss = profiles_page.soup.select("a")
+
+print("linkss", linkss)
+for link in linkss:
+    address = link['href']
+    text = link.text
+    print(f"{address} {text}")
 
