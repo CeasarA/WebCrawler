@@ -1,3 +1,4 @@
+import re
 from urllib.request import urlopen
 
 url = "http://olympus.realpython.org/profiles/aphrodite"
@@ -23,4 +24,7 @@ end_index = html.find("</title>")
 title = html[start_index:end_index]
 print("Title: ", title)
 
+# A primer on Regular Expressions
 
+found = re.findall("abc*c", "abc")
+print(found)
