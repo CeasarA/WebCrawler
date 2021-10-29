@@ -10,8 +10,6 @@ import hashlib
 import csv
 
 
-# url = 'https://nsano.com/'
-
 file = open('test_data.csv', newline='')
 reader = csv.reader(file)
 data_list = list(reader)
@@ -27,6 +25,7 @@ links = []
 
 # Extract domain
 try:
+
     for u in urls:
         url_after_adding_https = 'http://' + u
         domain = urlparse(url=url_after_adding_https).netloc
@@ -51,6 +50,7 @@ try:
                 links.append(new_link)
         
             print("Processed And Cleaned Links: ", links)
+
 except Exception as e:
     print(e)
 
@@ -66,6 +66,3 @@ for x in links:
     image_file = io.BytesIO(image)
     image = Image.open(image_file).convert('RGB')
     print(image_file)
-
-if __name__ == "__main__":
-    print('main')
