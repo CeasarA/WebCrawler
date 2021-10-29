@@ -22,13 +22,13 @@ for x in data_list:
     urls.append(x[0])
 
 print(urls)
-
+links = []
 # url = 'https://illinois.edu/fb/sec/229675'
 
 # Extract domain
 try:
     for u in urls:
-        url_after_adding_https = 'https://' + u
+        url_after_adding_https = 'http://' + u
         domain = urlparse(url=url_after_adding_https).netloc
 
         # Make a request to url, It will return a response
@@ -42,7 +42,6 @@ try:
         raw_links = soup.find_all("img")
 
         # loop through raw links and process them
-        links = []
         for i in raw_links:
             link = i['src']
             if link.startswith("http"):
