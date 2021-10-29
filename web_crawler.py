@@ -1,5 +1,7 @@
 import re
 from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
 
 url = "http://olympus.realpython.org/profiles/aphrodite"
 
@@ -22,9 +24,41 @@ start_index = title_index + len("<title>")
 end_index = html.find("</title>")
 
 title = html[start_index:end_index]
-print("Title: ", title)
 
 # A primer on Regular Expressions
 
-found = re.findall("abc*c", "abc")
-print(found)
+found = re.findall("abc*c", "abc", re.IGNORECASE)
+
+
+# Scrap a website
+urls = "http://olympus.realpython.org/profiles/dionysus"
+
+html_page = urlopen(urls)
+html_text = html_page.read().decode('utf-8')
+
+for string in ['Name:', 'Favorite Color:']:
+    string_start_index = html_text.find(string)
+    text_start_index = string_start_index + len(string)
+
+    next_html_tag_offset = html_text[text_start_index:].find('<')
+    text_end_index = text_start_index + next_html_tag_offset
+
+    raw_text = html_text[text_start_index:text_end_index]
+    clean_text = raw_text.strip(" \r\n\t")
+    print(clean_text)
+
+
+# Define Url, Open Url, Read&Decode Page, Bs4 Parse the HTML
+
+url = "http://olympus.realpython.org/profiles/dionysus"
+page = urlopen(url)
+html = page.read().decode("utf-8")
+soup = BeautifulSoup(html, "html.parser")
+
+print(soup.get_text())
+image1, image2 = soup.find_all("img")
+print(image1['src'])
+print(soup.title)
+print(soup.title.string)
+
+
