@@ -1,4 +1,3 @@
-from os import name
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
@@ -9,8 +8,8 @@ import io
 import pathlib
 import hashlib
 
-
-url = 'https://nsano.com/'
+# url = 'https://nsano.com/'
+url = 'https://illinois.edu/fb/sec/229675'
 
 # Extract domain
 domain = urlparse(url=url).netloc
@@ -34,13 +33,11 @@ for i in raw_links:
         new_link = "https://" + domain + '/' + link
         links.append(new_link)
 
-
 print("Processed And Cleaned Links: ", links)
 
 # Export data to a csv file
 df = pd.DataFrame({"Links": links})
 df.to_csv('images_from_nsano.csv', index=False, encoding='utf-8')
-
 
 # Write and Dwonload Images to a File
 for x in links:
@@ -49,10 +46,9 @@ for x in links:
     image_file = io.BytesIO(image)
     image = Image.open(image_file).convert('RGB')
     # file_path = pathlib.Path('/images', hashlib.sha1(image).hexdigest()[:10] + '.png')
-    file_path = pathlib.Path('images')
-    image.save(file_path, "PNG", quality=80)
+    # file_path = pathlib.Path('images')
+    # image.save(file_path, "PNG", quality=80)
     print(image_file)
-
 
 if __name__ == "__main__":
     print('main')
