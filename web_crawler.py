@@ -1,6 +1,7 @@
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import mechanicalsoup
 
 
 url = "http://olympus.realpython.org/profiles/aphrodite"
@@ -61,4 +62,21 @@ print(image1['src'])
 print(soup.title)
 print(soup.title.string)
 
+
+urlb = 'http://olympus.realpython.org/profiles'
+pageb = urlopen(urlb)
+htmlb = pageb.read().decode('utf-8')
+soup = BeautifulSoup(htmlb, "html.parser")
+
+links = soup.find_all("a")
+for i in links:
+    prefix = urlb + i['href']
+    print(prefix)
+
+
+browser = mechanicalsoup.Browser()
+url = "http://olympus.realpython.org/login"
+page = browser.get(url)
+
+print(page.soup)
 
