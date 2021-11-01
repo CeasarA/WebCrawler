@@ -49,7 +49,6 @@ def convert_to_csv(get_url):
     return df
 
 
-
 def download_image(links, pathname):
     # Write and Download Images to a File
 
@@ -76,7 +75,7 @@ def download_image(links, pathname):
     return links
 
 
-url = "https://www.nsano.com/"
+url = "https://www.kwidex.com/"
 get_urr = get_url(url)
 # convert_to_csv(get_urr)
 # download_image(get_urr, 'images')
