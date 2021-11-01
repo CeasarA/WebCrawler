@@ -1,5 +1,6 @@
 import requests
 import os
+import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import pandas as pd
@@ -20,7 +21,7 @@ def get_url(url):
 
     # Extract all tags with 'img' in it
     raw_links = soup.find_all("img")
-    print('raw_links', raw_links)
+    print('\n \n raw_links', raw_links)
 
     links = []
     # loop through raw links and process them
@@ -31,7 +32,12 @@ def get_url(url):
         else: 
             new_link = "https://" + domain + '/' + link
             links.append(new_link)
-    print(links)
+    print("\n \n Processed Links", links)
+
+    regex = re.compile(".*png")
+    new_links = list(filter(regex.match, links))
+    print("\n \n Logo Links ", new_links)
+
     return links
 
 
@@ -73,14 +79,14 @@ def download_image(links, pathname):
     return links
 
 
-url = "https://nsano.com/"
+url = "https://www.nsano.com/"
 get_urr = get_url(url)
-convert_to_csv(get_urr)
-download_image(get_urr, 'images')
+# convert_to_csv(get_urr)
+# download_image(get_urr, 'images')
 
-# if __name__ == "main":
-#     url = "https://nsano.com/"
-#     get_urr = get_url(url)
-#     print("all urls", get_urr)
-#     convert_to_csv(get_urr)
+if __name__ == "main":
+    url = "https://nsano.com/"
+    get_urr = get_url(url)
+    print("all urls", get_urr)
+    # convert_to_csv(get_urr)
     # download_image(get_urr, 'images')
