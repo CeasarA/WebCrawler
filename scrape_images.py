@@ -6,6 +6,7 @@ from PIL import Image
 #io manages file-related in/out operations
 import io
 import pathlib
+import tldextract
 import hashlib
 import csv
 
@@ -28,12 +29,12 @@ try:
 
     for u in urls:
         url_after_adding_https = 'http://' + u
-        domain = urlparse(url=url_after_adding_https).netloc
+        ext = tldextract.extract(url_after_adding_https)
+
+        domain = ext.registered_domain
 
         # Make a request to url, It will return a response
-
-        responses = requests.get(url_after_adding_https)
-
+        responses = requests.get(url_after_adding_https, verify=False)
         # Parse the response through BS4's html parser
         soup = BeautifulSoup(responses.text, "html.parser")
 
