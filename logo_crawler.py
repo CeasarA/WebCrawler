@@ -56,18 +56,17 @@ def get_url(url, *args):
     except Exception as e:
         print("Error ", e)
 
-    return logo
+    return logo_links
 
 
 # Export data to a csv file
 def convert_to_csv(get_url):
     # Structure the Links to be like a dict-like container for the Object
     df = pd.DataFrame({"Links": get_url})
-
-    df.to_csv('images_from_nsano.csv', index=False, encoding='utf-8')
+    path = 'excel/' + 'logo_images.csv'
+    df.to_csv(path, index=False, encoding='utf-8')
 
     return df
-
 
 def download_image(links, pathname):
     # Write and Download Images to a File
@@ -105,5 +104,6 @@ if __name__ == "__main__":
     url = "nsano.com"
     get_urr = get_url(url)
     print("Logo Link: ", get_urr)
-    # convert_to_csv(get_urr)
-    # download_image(get_urr, 'images')
+    convert_to_csv(get_urr)
+    path = 'images/' + url
+    download_image(get_urr, path)

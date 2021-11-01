@@ -2,7 +2,6 @@ import unittest
 import requests
 from logo_crawler import get_url
 
-
 class TestLogoCrawler(unittest.TestCase):
     """"
     Set up test fixed variables
@@ -31,17 +30,14 @@ class TestLogoCrawler(unittest.TestCase):
         
         image_formats = ("image/png", "image/jpeg", "image/jpg")
 
-        response = requests.head(self.get_url_response)
-        format = response.headers["content-type"] in image_formats
-        self.assertEqual(format, True)
+        for i in range(len(self.get_url_response)):
+            response = requests.head(self.get_url_response[i])
+            format = response.headers["content-type"] in image_formats
+            self.assertEqual(format, True)
 
     def tearDown(self):
         self.url = ""
 
+
 if __name__ == '__main__':
     unittest.main()
-
-url = "https://www.nsano.com"
-response = requests.get(url)
-print(dir(response))
-print(response.url)
