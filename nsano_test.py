@@ -10,16 +10,18 @@ from tqdm import tqdm
 def get_url(url):
     domain = urlparse(url=url).netloc
     print('domain', domain)
-    # Make a request to url, It will return a response
+    raw_links = []
+    # Try and make a request to url, It will return a response
+    try:
+        responses = requests.get(url)
+        # Parse the response through BS4's html parser
+        soup = BeautifulSoup(responses.text, "html.parser")
 
-    responses = requests.get(url)
-
-    # Parse the response through BS4's html parser
-    soup = BeautifulSoup(responses.text, "html.parser")
-
-    # Extract all tags with 'img' in it
-    raw_links = soup.find_all("img")
-    print('\n \n raw_links', raw_links)
+        # Extract all tags with 'img' in it
+        raw_links = soup.find_all("img")
+        print('\n \n raw_links', raw_links)
+    except Exception as e:
+        print("Error", e)
 
     links = []
     # loop through raw links and process them
