@@ -4,8 +4,6 @@ import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import pandas as pd
-#io manages file-related in/out operations
-import io
 from tqdm import tqdm
 
 
@@ -43,7 +41,7 @@ def get_url(url):
 
 # Export data to a csv file
 def convert_to_csv(get_url):
-
+    # Structure the Links to be like a dict-like container for the Object
     df = pd.DataFrame({"Links": get_url})
 
     df.to_csv('images_from_nsano.csv', index=False, encoding='utf-8')
@@ -72,9 +70,8 @@ def download_image(links, pathname):
         with open(file_name, 'wb') as f:
             for data in progress.iterable:
                 f.write(data)
-
+                # Update download progress
                 progress.update(len(data))
-
 
     return links
 
@@ -88,5 +85,3 @@ if __name__ == "main":
     url = "https://nsano.com/"
     get_urr = get_url(url)
     print("all urls", get_urr)
-    # convert_to_csv(get_urr)
-    # download_image(get_urr, 'images')
