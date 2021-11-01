@@ -2,14 +2,12 @@ import requests
 import os
 import re
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
 import pandas as pd
 from tqdm import tqdm
 import tldextract
 
 def get_url(url, *args):
     # Extract domain using tldextract
-    # domain = urlparse(url=url).netloc
     ext = tldextract.extract(url)
     # Join the domain and suffix fields
     domain = ext.registered_domain
