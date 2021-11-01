@@ -14,7 +14,7 @@ def get_url(url):
     # Join the domain and suffix fields
     domain = ext.registered_domain
     print('domain', domain)
-    
+
     raw_links = []
     # Try and make a request to url, It will return a response
     try:
@@ -34,23 +34,28 @@ def get_url(url):
     links = []
     # loop through raw links and process them
     for i in raw_links:
-        link = i['src']
+        link = i.get('src', i.get('srcset'))
         if link.startswith("http"):
             links.append(link)
-        else: 
+        else:
             new_link = "https://" + domain + '/' + link
             links.append(new_link)
+
     print("\n \n Processed Links", links)
 
     regex = re.compile(".*logo*")
-    new_links = list(filter(regex.match, links))
-    print("\n \n Logo Links ", new_links)
+    logo_links = list(filter(regex.match, links))
+    print("\n \n Logo Links ", logo_links)
 
-    logo = new_links[0]
-    print("\n \n Your Logo", logo)
+    try:
+        logo = logo_links[0]
+        print("\n \n Your Logo", logo)
+    except Exception as e:
+        print("Error ", e)
+        
     # requests.get(logo, verify=False)
 
-    return links
+    return logo_links
 
 
 # Export data to a csv file
@@ -89,7 +94,8 @@ def download_image(links, pathname):
     return links
 
 
-url = "https://www.kwidex.com/"
+url = "https://www.verishop.com/"
+# url = "https://www.nsano.com"
 get_urr = get_url(url)
 # convert_to_csv(get_urr)
 # download_image(get_urr, 'images')
