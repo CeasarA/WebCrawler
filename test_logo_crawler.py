@@ -24,13 +24,16 @@ class TestLogoCrawler(unittest.TestCase):
     def test_get_url_returns_an_image(self):
         "whether the get_url function returns an image"
         image_formats = ("image/png", "image/jpeg", "image/jpg")
+
         r = requests.head(self.get_url_response)
         format = r.headers["content-type"] in image_formats
         self.assertEqual(format, True)
 
 
-    def tearDown(self) -> None:
-        return super().tearDown()
+    def tearDown(self):
+        self.get_url_response.close()
+
+
 
 if __name__ == '__main__':
     unittest.main()
