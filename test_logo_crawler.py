@@ -34,7 +34,6 @@ class TestLogoCrawler(unittest.TestCase):
         format = r.headers["content-type"] in image_formats
         self.assertEqual(format, True)
 
-
     def tearDown(self):
         self.url = ""
 

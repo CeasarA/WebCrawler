@@ -55,7 +55,6 @@ try:
 except Exception as e:
     print(e)
 
-
 # Export data to a csv file
 df = pd.DataFrame({"Links": links})
 df.to_csv('test_data_images.csv', index=False, encoding='utf-8')

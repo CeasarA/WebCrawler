@@ -99,7 +99,7 @@ def download_image(links, pathname):
 
 
 if __name__ == "__main__":
-    url = ""
+    url = "www.nsano.com"
     get_urr = get_url(url)
     print("all urls", get_urr)
     # convert_to_csv(get_urr)
