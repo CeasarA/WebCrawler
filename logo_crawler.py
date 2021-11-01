@@ -47,11 +47,10 @@ def get_url(url, *args):
 
     try:
         logo = logo_links[0]
-        print("\n \n Your Logo", logo)
     except Exception as e:
         print("Error ", e)
 
-    return domain
+    return logo
 
 
 # Export data to a csv file
@@ -94,12 +93,11 @@ def download_image(links, pathname):
 
 
 # url = "https://www.verishop.com/"
-# url = "https://www.nsano.com"
-# get_urr = get_url(url)
-# convert_to_csv(get_urr)
-# download_image(get_urr, 'images')
 
-if __name__ == "main":
+
+if __name__ == "__main__":
     url = "https://nsano.com/"
     get_urr = get_url(url)
     print("all urls", get_urr)
+    convert_to_csv(get_urr)
+    download_image(get_urr, 'images')
