@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 import tldextract
 
-def get_url(url):
+def get_url(url, *args):
     # Extract domain using tldextract
     # domain = urlparse(url=url).netloc
     ext = tldextract.extract(url)
@@ -52,8 +52,6 @@ def get_url(url):
         print("\n \n Your Logo", logo)
     except Exception as e:
         print("Error ", e)
-        
-    # requests.get(logo, verify=False)
 
     return logo_links
 
@@ -76,9 +74,10 @@ def download_image(links, pathname):
         os.makedirs(pathname)
 
     for x in links:
-        image = requests.get(x).content
+        # image = requests.get(x).content
         response = requests.get(x, stream=True)
         # get file size
+        print(response.headers)
         file_size = int(response.headers.get("Content-Length", 0))
         # define file path
         file_name = os.path.join(pathname, x.split("/")[-1])
@@ -90,14 +89,16 @@ def download_image(links, pathname):
                 f.write(data)
                 # Update download progress
                 progress.update(len(data))
-
+        
+        # Close the Connection Pool
+        response.close()
     return links
 
 
-url = "https://www.verishop.com/"
-# url = "https://www.nsano.com"
+# url = "https://www.verishop.com/"
+url = "https://www.nsano.com"
 get_urr = get_url(url)
-# convert_to_csv(get_urr)
+convert_to_csv(get_urr)
 # download_image(get_urr, 'images')
 
 if __name__ == "main":
