@@ -62,11 +62,15 @@ def get_url(url, *args):
 # Export data to a csv file
 def convert_to_csv(get_url):
     # Structure the Links to be like a dict-like container for the Object
-    df = pd.DataFrame({"Links": get_url})
-    path = 'excel/' + 'logo_images.csv'
-    df.to_csv(path, index=False, encoding='utf-8')
 
-    return df
+    try:
+        df = pd.DataFrame({"Links": get_url})
+        path = 'excel/' + 'logo_images.csv'
+        df.to_csv(path, index=False, encoding='utf-8')
+        return df
+    except Exception as e:
+        print("If using all scalar values, you must pass an index", e)
+
 
 def download_image(links, pathname):
     # Write and Download Images to a File
@@ -97,7 +101,7 @@ def download_image(links, pathname):
     return links
 
 
-# url = "https://www.verishop.com/"
+# url = "https://www.verishop.com/ https://www.getequity.io/"
 
 
 if __name__ == "__main__":
