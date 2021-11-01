@@ -5,11 +5,16 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import pandas as pd
 from tqdm import tqdm
-
+import tldextract
 
 def get_url(url):
-    domain = urlparse(url=url).netloc
+    # Extract domain using tldextract
+    # domain = urlparse(url=url).netloc
+    ext = tldextract.extract(url)
+    # Join the domain and suffix fields
+    domain = ext.registered_domain
     print('domain', domain)
+    
     raw_links = []
     # Try and make a request to url, It will return a response
     try:
@@ -21,9 +26,10 @@ def get_url(url):
         # Extract all tags with 'img' in it
         raw_links = soup.find_all("img")
         print('\n \n raw_links', raw_links)
-        
+
     except Exception as e:
         print("Error", e)
+        return e
 
     links = []
     # loop through raw links and process them
@@ -36,9 +42,13 @@ def get_url(url):
             links.append(new_link)
     print("\n \n Processed Links", links)
 
-    regex = re.compile(".*png")
+    regex = re.compile(".*logo*")
     new_links = list(filter(regex.match, links))
     print("\n \n Logo Links ", new_links)
+
+    logo = new_links[0]
+    print("\n \n Your Logo", logo)
+    # requests.get(logo, verify=False)
 
     return links
 
