@@ -10,6 +10,9 @@ def get_url(url, *args):
     if not url:
         return None
 
+    if not url.startswith("https"):
+        url = 'https://' + url    
+
     # Extract domain using tldextract
     ext = tldextract.extract(url)
     # Join the domain and suffix fields
@@ -99,8 +102,8 @@ def download_image(links, pathname):
 
 
 if __name__ == "__main__":
-    url = "www.nsano.com"
+    url = "nsano.com"
     get_urr = get_url(url)
-    print("all urls", get_urr)
+    print("Logo Link: ", get_urr)
     # convert_to_csv(get_urr)
     # download_image(get_urr, 'images')
