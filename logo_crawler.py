@@ -7,11 +7,14 @@ from tqdm import tqdm
 import tldextract
 
 def get_url(url, *args):
+    if not url:
+        return None
+
     # Extract domain using tldextract
     ext = tldextract.extract(url)
     # Join the domain and suffix fields
     domain = ext.registered_domain
-    print('domain', domain)
+    print('domain: ', domain)
 
     raw_links = []
     # Try and make a request to url, It will return a response
@@ -96,8 +99,8 @@ def download_image(links, pathname):
 
 
 if __name__ == "__main__":
-    url = "https://nsano.com/"
+    url = ""
     get_urr = get_url(url)
     print("all urls", get_urr)
-    convert_to_csv(get_urr)
-    download_image(get_urr, 'images')
+    # convert_to_csv(get_urr)
+    # download_image(get_urr, 'images')

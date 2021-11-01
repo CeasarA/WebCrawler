@@ -21,6 +21,11 @@ class TestLogoCrawler(unittest.TestCase):
         url_response = requests.get(url=self.url)
         assert url_response.status_code < 400
 
+    def test_check_empty_url(self):
+        self.empty_url = ""
+        get_url_response = get_url(self.empty_url)
+        self.assertEqual(get_url_response, None)
+
     def test_get_url_returns_an_image(self):
         "whether the get_url function returns an image"
         image_formats = ("image/png", "image/jpeg", "image/jpg")
@@ -31,9 +36,7 @@ class TestLogoCrawler(unittest.TestCase):
 
 
     def tearDown(self):
-        self.get_url_response.close()
-
-
+        self.url = ""
 
 if __name__ == '__main__':
     unittest.main()
