@@ -51,7 +51,7 @@ def get_url(url, *args):
     except Exception as e:
         print("Error ", e)
 
-    return logo_links
+    return domain
 
 
 # Export data to a csv file
@@ -94,9 +94,9 @@ def download_image(links, pathname):
 
 
 # url = "https://www.verishop.com/"
-url = "https://www.nsano.com"
-get_urr = get_url(url)
-convert_to_csv(get_urr)
+# url = "https://www.nsano.com"
+# get_urr = get_url(url)
+# convert_to_csv(get_urr)
 # download_image(get_urr, 'images')
 
 if __name__ == "main":
