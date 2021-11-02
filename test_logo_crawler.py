@@ -45,7 +45,11 @@ from logo_crawler import download_image, get_url
 class TestDownloadLogoCrawler(unittest.TestCase):
     def setUp(self):
         """ Set initial values """
-        self.links = []
+        self.links = [
+            'https://nsano.com/images/logo.png',
+            'https://nsano.com/images/logo.png'
+        ]
+
         self.pathname = "images"
     
     def test_path_exists(self):
@@ -59,8 +63,14 @@ class TestDownloadLogoCrawler(unittest.TestCase):
         Should create a new path since it does not exists
         """
         self.new_pathname = 'try_folder'
-        os.makedirs(self.new_pathname, exist_ok=False)
+        os.makedirs(self.new_pathname, exist_ok=True)
         self.assertEqual(os.path.isdir(self.new_pathname), True)    
+
+    def test_empty_link_list(self):
+        "Return None if the List"
+        self.empty_links = ['']
+        response = download_image(self.empty_links)
+        self.assertIsNone(response)
 
     def tearDown(self):
         """Deset the initial values """
