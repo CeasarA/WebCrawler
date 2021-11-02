@@ -79,6 +79,9 @@ def download_image(links, pathname):
     if not links:
         return None
 
+    if links == ['']:
+        return None
+
     # create path if it does not exist 
     if not os.path.isdir(pathname):
         os.makedirs(pathname)

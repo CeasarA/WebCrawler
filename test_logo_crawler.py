@@ -68,14 +68,19 @@ class TestDownloadLogoCrawler(unittest.TestCase):
 
     def test_empty_link_list(self):
         "Return None if the List"
-        self.empty_links = ['']
-        response = download_image(self.empty_links)
+        self.empty_links = []
+        response = download_image(self.empty_links, self.pathname)
+        self.assertIsNone(response)
+
+    def test_empty_string_list(self):
+        "Return None if the List"
+        self.empty_string_links = ['']
+        response = download_image(self.empty_string_links, self.pathname)
         self.assertIsNone(response)
 
     def tearDown(self):
         """Deset the initial values """
         self.pathname = ""
-
 
 # url = TestLogoCrawler
 download = TestDownloadLogoCrawler
