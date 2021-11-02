@@ -7,7 +7,7 @@ from tqdm import tqdm
 import tldextract
 
 def get_url(url, *args):
-    if not url:
+    if not url or bool(url == ''):
         return None
 
     if not url.startswith("https"):
@@ -69,7 +69,8 @@ def convert_to_csv(get_url):
         df.to_csv(path, index=False, encoding='utf-8')
         return df
     except Exception as e:
-        print("If using all scalar values, you must pass an index", e)
+        print("Error", e)
+        return e
 
 
 def download_image(links, pathname):
@@ -83,26 +84,29 @@ def download_image(links, pathname):
     if not os.path.isdir(pathname):
         os.makedirs(pathname)
 
-    for x in links:
-        # image = requests.get(x).content
-        response = requests.get(x, stream=True)
-        # get file size
-        print(response.headers)
-        file_size = int(response.headers.get("Content-Length", 0))
-        # define file path
-        file_name = os.path.join(pathname, x.split("/")[-1])
-        # progress bar to change the units to bytes
-        progress = tqdm(response.iter_content(1024), f"Downloading {file_name}", total=file_size, unit="B", unit_scale=True, unit_divisor=1024)
-        # open the 
-        with open(file_name, 'wb') as f:
-            for data in progress.iterable:
-                f.write(data)
-                # Update download progress
-                progress.update(len(data))
-        
-        # Close the Connection Pool
-        response.close()
-    return links
+    try:
+        for x in links:
+            # image = requests.get(x).content
+            response = requests.get(x, stream=True)
+            # get file size
+            print(response.headers)
+            file_size = int(response.headers.get("Content-Length", 0))
+            # define file path
+            file_name = os.path.join(pathname, x.split("/")[-1])
+            # progress bar to change the units to bytes
+            progress = tqdm(response.iter_content(1024), f"Downloading {file_name}", total=file_size, unit="B", unit_scale=True, unit_divisor=1024)
+            # open the 
+            with open(file_name, 'wb') as f:
+                for data in progress.iterable:
+                    f.write(data)
+                    # Update download progress
+                    progress.update(len(data))
+            
+            # Close the Connection Pool
+            response.close()
+            
+    except Exception as e:
+        return e
 
 # url = "https://www.verishop.com/ https://www.getequity.io/"
 

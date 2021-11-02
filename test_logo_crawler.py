@@ -52,6 +52,10 @@ class TestDownloadLogoCrawler(unittest.TestCase):
 
         self.pathname = "images"
     
+    def test_links_and_images_are_right(self):
+        returned_value = download_image(links=self.links, pathname=self.pathname)
+        self.assertIsNotNone(returned_value)
+
     def test_path_exists(self):
         """
         Should return true since the file exists
