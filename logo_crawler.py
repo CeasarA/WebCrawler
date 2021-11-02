@@ -53,6 +53,7 @@ def get_url(url, *args):
 
     try:
         logo = logo_links[0]
+        print("\n \n Possible Logo Link", logo)
     except Exception as e:
         print("Error ", e)
 
@@ -104,12 +105,11 @@ def download_image(links, pathname):
             
             # Close the Connection Pool
             response.close()
-            
+        print(response.status_code)
+        return response.status_code
+
     except Exception as e:
         return e
-
-# url = "https://www.verishop.com/ https://www.getequity.io/"
-
 
 if __name__ == "__main__":
     url = "nsano.com"
