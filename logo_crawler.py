@@ -57,7 +57,7 @@ def get_url(url, *args):
     except Exception as e:
         print("Error ", e)
 
-    return logo_links
+    return logo
 
 
 # Export data to a csv file
