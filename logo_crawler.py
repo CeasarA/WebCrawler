@@ -107,7 +107,6 @@ def download_image(links, pathname):
         response.close()
     return links
 
-
 # url = "https://www.verishop.com/ https://www.getequity.io/"
 
 
