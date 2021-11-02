@@ -58,7 +58,7 @@ class TestDownloadLogoCrawler(unittest.TestCase):
         """
         Should create a new path since it does not exists
         """
-        self.new_pathname = 'try_fdooooooooer'
+        self.new_pathname = 'try_folder'
         os.makedirs(self.new_pathname, exist_ok=False)
         self.assertEqual(os.path.isdir(self.new_pathname), True)    
 
