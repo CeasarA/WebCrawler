@@ -75,11 +75,8 @@ def convert_to_csv(get_url):
 def download_image(links, pathname):
     # Write and Download Images to a File
     
-    # Return None if no links are provided.
-    if not links:
-        return None
-
-    if links == ['']:
+    # Return None if no links are provided .
+    if not links or bool(links == ['']):
         return None
 
     # create path if it does not exist 

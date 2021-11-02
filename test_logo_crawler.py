@@ -81,10 +81,12 @@ class TestDownloadLogoCrawler(unittest.TestCase):
     def tearDown(self):
         """Deset the initial values """
         self.pathname = ""
+        self.links = []
+
+
 
 # url = TestLogoCrawler
 download = TestDownloadLogoCrawler
-
 
 if __name__ == '__main__':
     unittest.main()
