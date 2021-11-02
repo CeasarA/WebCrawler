@@ -17,7 +17,8 @@ class TestLogoCrawler(unittest.TestCase):
     def test_url_exists(self):
         "whether the url exists"
         url_response = requests.get(url=self.url)
-        assert url_response.status_code < 400
+        # assert url_response.status_code < 400
+        self.assertEqual(url_response.status_code, 200)
 
     def test_check_empty_url(self):
         """ whether the url is empty """
